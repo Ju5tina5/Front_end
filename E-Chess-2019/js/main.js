@@ -69,6 +69,7 @@ function setMidSide() {
 //---------------------------- Prasideda darbas su sachmatu lenta, figuromis, draginimu --
 function setDraggable() {
     $('.figure').draggable();
+   
 }
 
 function setDroppable() {
@@ -82,15 +83,69 @@ function setDroppable() {
               }
     }); 
 }
+ 
 
 function moveFigure(frCoord, toCoord) {
-    console.log('// ---');
-    console.log('move from: '+ frCoord +' to: '+ toCoord);
-    figure = 'P'; // Visada eiti pradeda baltas pestininkas "P"
+    function whatMove ( ){ // ją įdėk į "function moveFigure(frCoord, toCoord)"
+        console.log('figure: '+ figure);
+        var figureName = '';
+        var event = 'move from: '+ move_from +' to: '+ move_to;
+        if (figure === 'P' || figure === 'p') { 
+            figureName = 'Pajudėjo pėstininkas';
+        console.log(figureName); 
+            }   
+        if (figure === 'K' || figure === 'k') {
+            figureName = ('Pajudėjo Karalius');
+                console.log( figureName ); 
+            }
+        if (figure === 'Q' || figure === 'q') {
+            figureName = 'Pajudėjo Karalienė';
+                console.log( figureName ); 
+            }
+        if (figure === 'R' || figure === 'r') {
+                figureName = 'Pajudėjo bokštas';
+                console.log(figureName); 
+            }
+        if (figure === 'B' || figure === 'b') {
+                figureName = 'Pajudėjo rikis';
+                console.log(figureName); 
+            }
+        if (figure === 'N' || figure === 'n') {
+                figureName = 'Pajudėjo žirgas';
+                console.log(figureName); 
+            }
+
+            if (figure == figure.toUpperCase()) {
+                $('.left-p').append('<p>'+ event + ' : ' +  figureName +'</p>'); 
+            }
+                else {
+                $('.right-p').append('<p>'+ event + ' : ' + figureName +'</p>'); 
+            } 
+            
+        } 
+    var letters = ('bcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefgha');
+    var numbers = ('8888888877777777666666665555555544444444333333332222222211111111');
+    var move_from = '';
+    var move_to = '';
+    for (var i = 0; i < frCoord; i++) {
+        if (i+1 == frCoord){
+            move_from = letters[i] + numbers[i];
+        }
+    }
+        for (var i = 0; i < toCoord; i++) {
+            if (i+1 == toCoord){
+                move_to = letters[i] + numbers[i];
+            }
+        }
+    
+    // figure = 'P'; // Visada eiti pradeda baltas pestininkas "P"
+    
     figure = map[frCoord]; // Cia figura gauna is kur ji atejo
     showFigureAt(frCoord, '1');
     showFigureAt(toCoord, figure);
     setDraggable();
+    whatMove ();
+
 }
 
 function addSquares(){
@@ -121,6 +176,7 @@ function showFigureAt(coord, figure) {
         .replace('$figure', getChessSymbol(figure)));
         setDroppable ();
 }
+
 
 function getChessSymbol(figure) {
     switch (figure) {
